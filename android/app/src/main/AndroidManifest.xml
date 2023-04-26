@@ -17,7 +17,7 @@
         android:icon="@mipmap/ic_launcher">
 
        <service
-           android:name=".LocationService"
+           android:name=".service.LocationService"
            android:foregroundServiceType="location" />
 
         <activity

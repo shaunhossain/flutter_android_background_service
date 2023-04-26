@@ -1,9 +1,8 @@
 package com.shaunhossain.flutter_android_background_service
 
 
-import android.content.Context
 import android.content.Intent
-import androidx.core.content.ContentProviderCompat.requireContext
+import com.shaunhossain.flutter_android_background_service.service.LocationService
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
