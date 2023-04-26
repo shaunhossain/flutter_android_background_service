@@ -14,7 +14,11 @@ class _HomePageState extends State<HomePage> {
 
   void startService() async {
     try {
-      int action = await platform.invokeMethod('start');
+      var arguments = {
+        'name': "shaun",
+        'office': 'barikoi',
+      };
+      int action = await platform.invokeMethod('start',arguments);
       if (kDebugMode) {
         print(action);
       }

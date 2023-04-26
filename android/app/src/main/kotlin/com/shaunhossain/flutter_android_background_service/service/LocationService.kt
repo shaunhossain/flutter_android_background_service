@@ -32,6 +32,7 @@ class LocationService : Service() {
     companion object {
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"
+        var USER = "Unknown"
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -61,7 +62,7 @@ class LocationService : Service() {
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notification = NotificationCompat.Builder(this, "track_location")
             .setContentTitle("Tracking location ....")
-            .setContentText("Location: null")
+            .setContentText("$USER Location: null")
             .setSmallIcon(R.drawable.icon_notifications)
             .setOngoing(true)
         locationClient.getLocationUpdates(100L)
@@ -69,7 +70,7 @@ class LocationService : Service() {
             .onEach { location ->
                 val lat = location.latitude.toString()
                 val lon = location.longitude.toString()
-                val updateNotification = notification.setContentText("Location: ($lat,$lon)")
+                val updateNotification = notification.setContentText("$USER Location: ($lat,$lon)")
                 notificationManager.notify(1, updateNotification.build())
             }
             .launchIn(serviceScope)
@@ -91,7 +92,7 @@ class LocationService : Service() {
 
         val notification =
             NotificationCompat.Builder(this, "101").setContentTitle("foreground service")
-                .setContentText("This is content").setSmallIcon(R.drawable.icon_notifications)
+                .setContentText("This is $USER location").setSmallIcon(R.drawable.icon_notifications)
                 .setContentIntent(pi)
 
         locationClient.getLocationUpdates(100L)
@@ -99,7 +100,7 @@ class LocationService : Service() {
             .onEach { location ->
                 val lat = location.latitude.toString()
                 val lon = location.longitude.toString()
-                val updateNotification = notification.setContentText("Location: ($lat,$lon)")
+                val updateNotification = notification.setContentText("$USER Location: ($lat,$lon)")
                 notificationManager?.notify(1, updateNotification.build())
             }
             .launchIn(serviceScope)
