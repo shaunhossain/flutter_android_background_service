@@ -73,8 +73,10 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation 'com.google.android.gms:play-services-location:19.0.0'
 
     //play store update
     implementation 'com.google.android.play:core:1.10.3'
+
+    implementation 'com.github.barikoi:barikoitrace-android-sdk:0.2.7-beta'
 }

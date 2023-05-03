@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,8 +16,9 @@ class _HomePageState extends State<HomePage> {
   void startService() async {
     try {
       var arguments = {
-        'name': "shaun",
-        'office': 'barikoi',
+        'name': "sakib",
+        'email': 'barikoi@gmail.com',
+        'phone': '01676529696'
       };
       int action = await platform.invokeMethod('start',arguments);
       if (kDebugMode) {
@@ -38,6 +40,24 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<void> requestLocationPermission() async {
+
+    final serviceStatusLocation = await Permission.locationWhenInUse.isGranted ;
+
+    bool isLocation = serviceStatusLocation == ServiceStatus.enabled;
+
+    final status = await Permission.locationWhenInUse.request();
+
+    if (status == PermissionStatus.granted) {
+      startService();
+    } else if (status == PermissionStatus.denied) {
+      await openAppSettings();
+    } else if (status == PermissionStatus.permanentlyDenied) {
+      print('Permission Permanently Denied');
+      await openAppSettings();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -50,7 +70,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             MaterialButton(
               onPressed: () {
-                startService();
+              requestLocationPermission();
               },
               color: Colors.blueAccent,
               child: const Text("Start Service"),
